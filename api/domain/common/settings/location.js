@@ -1,8 +1,22 @@
+/**
+ * Provides location information.
+ */
 class Location {
 
     constructor(latitude = 0.0000, longitude = 0.0000) {
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    /**
+     * Creates a new location.
+     *
+     * @param latitude - degrees latitude in decimal format, South is negative
+     * @param longitude - degrees longitude in decimal format, -180°..180°
+     * @returns {Location}
+     */
+    static of(latitude, longitude) {
+        return new Location(latitude, longitude);
     }
 
     /**
@@ -24,3 +38,5 @@ class Location {
     }
 
 }
+
+export default Location;

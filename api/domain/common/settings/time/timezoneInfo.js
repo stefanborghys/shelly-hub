@@ -9,6 +9,20 @@ class TimezoneInfo {
     }
 
     /**
+     * Creates a new TimezoneInfo.
+     *
+     * @param timezone - timezone identifier
+     * @param autodetect
+     * @param utcOffset - UTC offset
+     * @param daylightSavingTime - daylight saving time [boolean]
+     * @param autoUpdateDaylightSavingTime - auto update daylight saving time [boolean]
+     * @returns {TimezoneInfo}
+     */
+    static of(timezone, autodetect, utcOffset, daylightSavingTime, autoUpdateDaylightSavingTime) {
+        return new TimezoneInfo(timezone, autodetect, utcOffset, daylightSavingTime, autoUpdateDaylightSavingTime);
+    }
+
+    /**
      * Timezone identifier.
      *
      * @returns timezone
