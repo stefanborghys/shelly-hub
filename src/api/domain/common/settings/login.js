@@ -2,15 +2,14 @@
  * Provides HTTP authentication configuration.
  */
 class Login {
+  constructor(enabled, unprotected, username, password = undefined) {
+    this.enabled = enabled;
+    this.unprotected = unprotected;
+    this.username = username;
+    this.password = password;
+  }
 
-    constructor(enabled, unprotected, username, password = undefined) {
-        this.enabled = enabled;
-        this.unprotected = unprotected;
-        this.username = username;
-        this.password = password;
-    }
-
-    /**
+  /**
      * Creates a new Login.
      *
      * @param enabled - authentication enabled? [boolean]
@@ -18,67 +17,66 @@ class Login {
      * @param username - username
      * @returns {Login}
      */
-    static of(enabled, unprotected, username) {
-        return new Login(enabled, unprotected, username);
-    }
+  static of(enabled, unprotected, username) {
+    return new Login(enabled, unprotected, username);
+  }
 
-    /**
+  /**
      * Enable login authentication.
      *
      * @param username - username
      * @param password - password
      * @returns {LoginUpdate}
      */
-    static enable(username, password) {
-        return new Login(true, true, username, password);
-    }
+  static enable(username, password) {
+    return new Login(true, true, username, password);
+  }
 
-    /**
+  /**
      * Disable login authentication.
      *
      * @param unprotected - user aware of disabled authentication risks? [boolean]
      * @returns {LoginUpdate}
      */
-    static disable(unprotected) {
-        return new Login(false, unprotected, undefined, undefined);
-    }
+  static disable(unprotected) {
+    return new Login(false, unprotected, undefined, undefined);
+  }
 
-    /**
+  /**
      * Whether HTTP authentication is required.
      *
      * @returns HTTP authentication required
      */
-    get enabled() {
-        return this.enabled;
-    }
+  get enabled() {
+    return this.enabled;
+  }
 
-    /**
+  /**
      * Whether the user is aware of the risks.
      *
      * @returns user is aware no authentication is required
      */
-    get unprotected() {
-        return this.unprotected;
-    }
+  get unprotected() {
+    return this.unprotected;
+  }
 
-    /**
+  /**
      * Username.
      *
      * @returns username
      */
-    get username() {
-        return this.username;
-    }
+  get username() {
+    return this.username;
+  }
 
-    /**
+  /**
      * Password.
      *
      * @returns password
      */
-    get password() {
-        return this.password;
-    }
-
+  get password() {
+    return this.password;
+  }
 }
 
 export default Login;

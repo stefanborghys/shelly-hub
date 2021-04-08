@@ -1,0 +1,31 @@
+{
+  "name": "shelly-hub",
+  "version": "1.0.0",
+  "description": "Shelly Hub",
+  "main": "app.js",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --fix --color --format table src",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "document": "./node_modules/.bin/jsdoc --configure jsdoc.conf.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stefanborghys/shelly-hub.git"
+  },
+  "keywords": [
+    "shelly"
+  ],
+  "author": "Stefan Borghys",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stefanborghys/shelly-hub/issues"
+  },
+  "homepage": "https://github.com/stefanborghys/shelly-hub#readme",
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "jsdoc": "^3.6.6"
+  }
+}
