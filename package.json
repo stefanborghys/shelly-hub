@@ -5,6 +5,7 @@
   "main": "app.js",
   "private": true,
   "scripts": {
+    "lint": "eslint --fix --color --format table src",
     "test": "echo \"Error: no test specified\" && exit 1",
     "document": "./node_modules/.bin/jsdoc --configure jsdoc.conf.json"
   },
@@ -22,6 +23,9 @@
   },
   "homepage": "https://github.com/stefanborghys/shelly-hub#readme",
   "devDependencies": {
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
     "jsdoc": "^3.6.6"
   }
 }
