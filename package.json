@@ -7,7 +7,8 @@
   "scripts": {
     "lint": "eslint --fix --color --format table src",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "document": "./node_modules/.bin/jsdoc --configure jsdoc.conf.json"
+    "document": "./node_modules/.bin/jsdoc --configure jsdoc.conf.json",
+    "start": "node src/app.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
+    "express": "^4.17.1",
     "jsdoc": "^3.6.6"
   }
 }
