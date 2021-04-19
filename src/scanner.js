@@ -10,7 +10,7 @@ function scan(){
     for (; part4<255; part4++){
         let ip4 = `http://${part1}.${part2}.${part3}.${part4}:80/shelly`;
         
-        http.get(new URL(ip4), {port:80}, async (response) => {
+        http.get({host:`${part1}.${part2}.${part3}.${part4}`, port:80, path:'/shelly'}, async (response) => {
             const { method, url, headers } = response;
             const contentType = headers['content-type'];
 
