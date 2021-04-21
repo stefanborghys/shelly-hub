@@ -2,10 +2,14 @@ const express = require('express');
 const app = express();
 const port = 4000;
 
-const scanner = require('./scanner');
+const ShellyService = require('./api/services/shelly-service');
 
 app.get('/', (request, response) => {
-    scanner.scan();
+    ShellyService.searchForShellys()
+        .then((shellys) => 
+            shellys.forEach((shelly) => console.log(shelly.toString()))
+        );
+
     response.send('Hello World!')
 })
 
