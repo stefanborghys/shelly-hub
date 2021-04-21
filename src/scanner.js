@@ -1,4 +1,5 @@
 const http = require('http');
+const Shelly = require('./api/domain/common/shelly')
 
 function scan(){
     console.log('start scan');
@@ -17,11 +18,14 @@ function scan(){
             if(response.statusCode===200 && contentType === 'application/json'){
                 response.setEncoding('utf8');
                 const jsonBody = await getBody(response).then(JSON.parse);
-                console.log(`${ip4} => ${jsonBody.type}`)
+
+                const shelly = Shelly.of(jsonBody.type, jsonBody.mac, jsonBody.auth, jsonBody.fw, jsonBody.longid);
+
+                console.log(`${ip4} => ${jsonBody.type} ${shelly.model}`)
             }
 
         }).on('error', (error) => {
-            console.error(`${ip4} - ${error.code}`);
+            //console.error(`${ip4} - ${error.code}`);
         });
     }
 
