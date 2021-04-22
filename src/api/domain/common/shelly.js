@@ -1,69 +1,102 @@
 /**
- * Provides basic information about the device.
+ * Provides basic information about a physical Shelly device found in the local network.
+ *
+ * @class
  */
 class Shelly {
   /**
-     * Provides basic information about the device.
-     *
-     * @param type - shelly model
-     * @param mac - MAC address
-     * @param requireAuthentication - require's authentication
-     * @param firmwareVersion - firmware version
-     * @param longid - long id
-     */
-  constructor(type, mac, requireAuthentication, firmwareVersion, longid) {
-    this.type = type;
-    this.mac = mac;
-    this.requireAuthentication = requireAuthentication;
-    this.firmwareVersion = firmwareVersion;
-    this.longid = longid;
+   * Create a new Shelly device.
+   *
+   * @private
+   * @param {!string} identifier - The Shelly model's identifier, e.g. 'SHSW-1'
+   * @param {!string} mac - The device's MAC address, e.g. 'E098068D069E'
+   * @param {!string} ip - The device's IP address, e.g. '192.168.1.7'
+   * @param {!boolean} authenticationRequired - Is authentication required for HTTP API requests
+   * @param {!string} firmwareVersion - The current firmware version, e.g. '20210115-102904/v1.9.4@e2732e05'
+   */
+  constructor(identifier, mac, ip, authenticationRequired, firmwareVersion) {
+    this._identifier = identifier;
+    this._mac = mac;
+    this._ip = ip;
+    this._authenticationRequired = authenticationRequired;
+    this._firmwareVersion = firmwareVersion;
   }
 
   /**
-     * Shelly model identifier.
-     *
-     * @returns Shelly model
-     */
-  get type() {
-    return this.type;
+   * Creates a new Shelly device representation.
+   * Based upon the basic information a physical device publicly makes available.
+   *
+   * @param {!string} type - The model identifier, e.g. 'SHSW-1'
+   * @param {!string} mac - The MAC address, e.g. 'E098068D069E'
+   * @param {!string} ip - The device's IP address, e.g. '192.168.1.7'
+   * @param {!boolean} auth - Is authentication required for HTTP requests
+   * @param {!string} fw - The current firmware version, e.g. '20210115-102904/v1.9.4@e2732e05'
+   *
+   * @returns {Shelly} A new Shelly device representation
+   */
+  static of(type, mac, ip, auth, fw) {
+    return new Shelly(type, mac, ip, auth, fw);
   }
 
   /**
-     * MAC address of the device.
-     *
-     * @returns MAC address
-     */
+   * Returns the model identifier.
+   *
+   * @returns {string} The model identifier, e.g. 'SHSW-1'
+   */
+  get identifier() {
+    return this._identifier;
+  }
+
+  /**
+   * Returns the MAC address.
+   *
+   * @returns {string} The MAC address, e.g. 'E098068D069E'
+   */
   get mac() {
-    return this.mac;
+    return this._mac;
   }
 
   /**
-     * Whether HTTP requests require authentication.
-     *
-     * @returns authentication required
-     */
-  get requireAuthentication() {
-    return this.requireAuthentication;
+   * Returns the IP address.
+   *
+   * @returns {string} The IP address, e.g. '192.168.1.7'
+   */
+  get ip() {
+    return this._ip;
   }
 
   /**
-     * Current firmware version.
-     *
-     * @returns firmware version
-     */
+   * Returns whether the device requires authentication to allow HTTP API requests.
+   *
+   * @returns {boolean} True if authentication is required, otherwise false
+   */
+  get isAuthenticationRequired() {
+    return this._authenticationRequired;
+  }
+
+  /**
+   * Returns the current firmware version.
+   *
+   * @returns {string} The firmware version, e.g. '20210115-102904/v1.9.4@e2732e05'
+   */
   get firmwareVersion() {
-    return this.firmwareVersion;
+    return this._firmwareVersion;
   }
 
   /**
-     * 1 if the device identifies itself with its full MAC address;
-     * 0 if only the last 3 bytes are used
-     *
-     * @returns 0 or 1
-     */
-  get longId() {
-    return this.longid;
+   * Returns the shelly's string representation.
+   *
+   * @returns {string} The shelly's string representation
+   */
+  toString() {
+    return `${this._ip} ${this._mac} ${this.firmwareVersion} ${this._identifier}`;
   }
 }
 
-export default Shelly;
+/**
+ * Exports Shelly, a (physical) device representation.
+ * Containing basic information about it's current state.
+ *
+ * @module Shelly
+ */
+module.exports = Shelly;
