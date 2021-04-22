@@ -1,18 +1,12 @@
 /**
  * Provides basic information about a physical Shelly device found in the local network.
- * 
+ *
  * @class
  */
 class Shelly {
-  _identifier;
-  _mac;
-  _ip;
-  _authenticationRequired;
-  _firmwareVersion;
-  
   /**
    * Create a new Shelly device.
-   * 
+   *
    * @private
    * @param {!string} identifier - The Shelly model's identifier, e.g. 'SHSW-1'
    * @param {!string} mac - The device's MAC address, e.g. 'E098068D069E'
@@ -30,17 +24,17 @@ class Shelly {
 
   /**
    * Creates a new Shelly device representation.
-   * Based upon the basic information a physical device publicly makes available. 
-   * 
+   * Based upon the basic information a physical device publicly makes available.
+   *
    * @param {!string} type - The model identifier, e.g. 'SHSW-1'
    * @param {!string} mac - The MAC address, e.g. 'E098068D069E'
    * @param {!string} ip - The device's IP address, e.g. '192.168.1.7'
    * @param {!boolean} auth - Is authentication required for HTTP requests
    * @param {!string} fw - The current firmware version, e.g. '20210115-102904/v1.9.4@e2732e05'
-   * 
+   *
    * @returns {Shelly} A new Shelly device representation
    */
-  static of(type, mac, ip, auth, fw){
+  static of(type, mac, ip, auth, fw) {
     return new Shelly(type, mac, ip, auth, fw);
   }
 
@@ -67,7 +61,7 @@ class Shelly {
    *
    * @returns {string} The IP address, e.g. '192.168.1.7'
    */
-   get ip() {
+  get ip() {
     return this._ip;
   }
 
@@ -91,19 +85,18 @@ class Shelly {
 
   /**
    * Returns the shelly's string representation.
-   * 
+   *
    * @returns {string} The shelly's string representation
    */
-  toString(){
+  toString() {
     return `${this._ip} ${this._mac} ${this.firmwareVersion} ${this._identifier}`;
   }
-
 }
 
 /**
- * Exports Shelly, a (physical) device representation. 
+ * Exports Shelly, a (physical) device representation.
  * Containing basic information about it's current state.
- * 
+ *
  * @module Shelly
  */
-module.exports =  Shelly;
+module.exports = Shelly;
