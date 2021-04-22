@@ -7,16 +7,16 @@ const _ = require('lodash');
  */
 class IpV4Address {
   /**
-     * Create a new IP v4 address.
-     *
-     * @private
-     * @param {!string} ipV4Address - IP v4 address
-     *
-     * @throws {TypeError} The ipV4Address is mandatory
-     * @throws {TypeError} The ipV4Address should be of type string
-     * @throws {TypeError} The ipV4Address's first, second, third or fourth number is invalid
-     * @throws {TypeError} The ipV4Address has an invalid format
-     */
+   * Create a new IP v4 address.
+   *
+   * @private
+   * @param {!string} ipV4Address - IP v4 address
+   *
+   * @throws {TypeError} The ipV4Address is mandatory
+   * @throws {TypeError} The ipV4Address should be of type string
+   * @throws {TypeError} The ipV4Address's first, second, third or fourth number is invalid
+   * @throws {TypeError} The ipV4Address has an invalid format
+   */
   constructor(ipV4Address) {
     if (!ipV4Address) {
       throw new TypeError('The IP v4 address is mandatory');
@@ -56,26 +56,26 @@ class IpV4Address {
   }
 
   /**
-     * Creates a new IP v4 address.
-     *
-     * @param {!string} ipV4Address - IP v4 address
-     *
-     * @throws {TypeError} The ipV4Address is mandatory
-     * @throws {TypeError} The ipV4Address should be of type string
-     * @throws {TypeError} The ipV4Address's first, second, third or fourth number is invalid
-     * @throws {TypeError} The ipV4Address has an invalid format
-     *
-     * @returns {ipV4Address} A new IP v4 address
-     */
+   * Creates a new IP v4 address.
+   *
+   * @param {!string} ipV4Address - IP v4 address
+   *
+   * @throws {TypeError} The ipV4Address is mandatory
+   * @throws {TypeError} The ipV4Address should be of type string
+   * @throws {TypeError} The ipV4Address's first, second, third or fourth number is invalid
+   * @throws {TypeError} The ipV4Address has an invalid format
+   *
+   * @returns {ipV4Address} A new IP v4 address
+   */
   static of(ipV4Address) {
     return new IpV4Address(ipV4Address);
   }
 
   /**
-     * Returns the IP address in dot-dicimal notation.
-     *
-     * @returns {string} The IP address in dot-dicimal notation
-     */
+   * Returns the IP address in dot-dicimal notation.
+   *
+   * @returns {string} The IP address in dot-dicimal notation
+   */
   get ip() {
     return `${this._firstNumber}.${this._secondNumber}.${this._thirdNumber}.${this._fourthNumber}`;
   }
