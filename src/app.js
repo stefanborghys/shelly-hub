@@ -28,12 +28,10 @@ app.get('/api/shelly/search/:ipAddress', (request, response) => {
     }
 })
 
-function shellyToJson (shelly) {
-    return {
-        identifier: shelly.identifier,
-        mac: shelly.mac,
-        ip: shelly.ip,
-        authenticationRequired: shelly.isAuthenticationRequired,
-        firmwareVersion: shelly.firmwareVersion
-    }
-}
+const shellyToJson = (shelly) => ({
+    identifier: shelly.identifier,
+    mac: shelly.mac,
+    ip: shelly.ip,
+    authenticationRequired: shelly.isAuthenticationRequired,
+    firmwareVersion: shelly.firmwareVersion
+})
