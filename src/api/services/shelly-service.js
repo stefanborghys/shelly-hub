@@ -33,6 +33,8 @@ class ShellyService {
      * Search for Shelly basic information on given IP address.
      *
      * @param {!string} ipAddress - The IP address to be requested
+     *
+     * @see https://shelly-api-docs.shelly.cloud/#shelly
      * @returns {Promise<Shelly>} The Shelly device's basic information when available
      */
   searchForShellyOnIpAddress(ipAddress) {

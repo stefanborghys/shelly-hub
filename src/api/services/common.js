@@ -1,4 +1,3 @@
-import Shelly from '../domain/common/shelly';
 import Device from '../domain/common/settings/device';
 import AccessPoint from '../domain/common/settings/wifi/accessPoint';
 import Client from '../domain/common/settings/wifi/client';
@@ -13,20 +12,6 @@ import Location from '../domain/common/settings/location';
 import Settings from '../domain/common/settings/settings';
 
 class Common {
-  /**
-     * Provides basic information about the device.
-     * It does not require HTTP authentication, even if authentication is enabled globally.
-     *
-     * This endpoint can be used in conjunction with mDNS for device discovery and identification.
-     *
-     * @see https://shelly-api-docs.shelly.cloud/#shelly
-     * @returns {Shelly}
-     */
-  static getShelly() {
-    // /shelly
-    return new Shelly('SHSW-21', '5ECF7F1632E8', true, '20161223-111304/master@2bc16496', 1);
-  }
-
   /**
      * Represents device configuration.
      *
