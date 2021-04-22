@@ -8,6 +8,9 @@ const Model = require('../domain/common/model');
 class ModelService {
     _models;
 
+    /**
+     * @private
+     */
     constructor(){
         this._models = new Set();
 
@@ -39,6 +42,7 @@ class ModelService {
 
 /**
  * Exports a singleton ModelService.
+ * Responsible for managing the different Shelly Models known by the hub.
  * 
  * @module ModelService
  */

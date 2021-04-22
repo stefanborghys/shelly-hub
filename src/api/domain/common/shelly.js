@@ -13,6 +13,7 @@ class Shelly {
   /**
    * Create a new Shelly device.
    * 
+   * @private
    * @param {!string} identifier - The Shelly model's identifier, e.g. 'SHSW-1'
    * @param {!string} mac - The device's MAC address, e.g. 'E098068D069E'
    * @param {!string} ip - The device's IP address, e.g. '192.168.1.7'
@@ -100,8 +101,8 @@ class Shelly {
 }
 
 /**
- * Exports Shelly, a device representation. 
- * Containing basic information.
+ * Exports Shelly, a (physical) device representation. 
+ * Containing basic information about it's current state.
  * 
  * @module Shelly
  */

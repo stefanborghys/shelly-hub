@@ -11,6 +11,7 @@ class Model {
     /**
      * Create a new Model.
      * 
+     * @private
      * @param {!string} identifier - The model's identifier, e.g. 'SHSW-1'
      * 
      * @throws {TypeError} The identifier should be a string

@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint --fix --color --format table src",
     "test": "",
-    "document": "./node_modules/.bin/jsdoc --configure jsdoc.conf.json",
+    "document": "jsdoc --configure jsdoc.conf.json",
     "start": "node src/app.js"
   },
   "repository": {

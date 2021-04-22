@@ -12,7 +12,7 @@ class ShellyService {
      * Search for Shelly devices in the local network.
      * 
      * @async
-     * @returns {[Shelly]} An array of found Shelly devices
+     * @returns {Shelly[]} An array of found Shelly devices
      */
     async searchForShellys(){
         let part1 = 192, part2 = 168, part3 = 1;
@@ -59,6 +59,7 @@ class ShellyService {
 
 /**
  * Exports a singleton ShellyService.
+ * Providing methods to search for Shelly devices in the local network.
  * 
  * @module ShellyService
  */
