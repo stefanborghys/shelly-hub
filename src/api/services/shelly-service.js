@@ -9,11 +9,11 @@ const IpV4Address = require('../domain/common/ip-v4-address');
  */
 class ShellyService {
   /**
-     * Search for Shelly devices in the local network.
-     *
-     * @async
-     * @returns {Shelly[]} An array of found Shelly devices
-     */
+   * Search for Shelly devices in the local network.
+   *
+   * @async
+   * @returns {Shelly[]} An array of found Shelly devices
+   */
   async searchForShellys() {
     const part1 = 192; const part2 = 168; const
       part3 = 1;
@@ -30,13 +30,13 @@ class ShellyService {
   }
 
   /**
-     * Search for Shelly basic information on given IP address.
-     *
-     * @param {!string} ipAddress - The IP address to be requested
-     *
-     * @see https://shelly-api-docs.shelly.cloud/#shelly
-     * @returns {Promise<Shelly>} The Shelly device's basic information when available
-     */
+   * Search for Shelly basic information on given IP address.
+   *
+   * @param {!string} ipAddress - The IP address to be requested
+   *
+   * @see https://shelly-api-docs.shelly.cloud/#shelly
+   * @returns {Promise<Shelly>} The Shelly device's basic information when available
+   */
   searchForShellyOnIpAddress(ipAddress) {
     const ipV4Address = IpV4Address.of(ipAddress);
 

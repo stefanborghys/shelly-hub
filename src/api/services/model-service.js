@@ -7,8 +7,8 @@ const Model = require('../domain/common/model');
  */
 class ModelService {
   /**
-     * @private
-     */
+   * @private
+   */
   constructor() {
     this._models = new Set();
 
@@ -19,12 +19,12 @@ class ModelService {
   }
 
   /**
-     * Search for a Shelly model by identifier.
-     *
-     * @param {string} identifier - Shelly model identifier
-     *
-     * @returns {Model|undefined} Shelly model or undefined when not found
-     */
+   * Search for a Shelly model by identifier.
+   *
+   * @param {string} identifier - Shelly model identifier
+   *
+   * @returns {Model|undefined} Shelly model or undefined when not found
+   */
   findModel(identifier) {
     if (identifier) {
       for (const model of this._models.values()) {
