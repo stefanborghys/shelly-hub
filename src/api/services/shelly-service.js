@@ -1,5 +1,6 @@
 const axios = require('axios');
 const Shelly = require('../domain/common/shelly');
+const IpV4Address = require('../domain/common/ip-v4-address');
 
 /**
  * Shelly service allowing shelly devices to be found in the local network.
@@ -36,9 +37,11 @@ class ShellyService {
      * @returns {Promise<Shelly>} The Shelly device's basic information when available
      */
     searchForShellyOnIpAddress(ipAddress){
+        const ipV4Address = IpV4Address.of(ipAddress);
+
         const isOk = (status) => status === 200;
 
-        return axios.get(`http://${ipAddress}:80/shelly`, {timeout: 2000, validateStatus: isOk })
+        return axios.get(`http://${ipV4Address.ip}:80/shelly`, {timeout: 2000, validateStatus: isOk })
             .then((response) => {
                 return new Promise((resolve, reject) => {
                     if(response.headers['content-type'] === 'application/json'){

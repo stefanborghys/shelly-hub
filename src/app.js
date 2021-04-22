@@ -12,32 +12,28 @@ app.get('/', (request, response) => {
 
 app.get('/api/shelly/search', (request, response) => {
     ShellyService.searchForShellys().then((shellys) => 
-            shellys.map((shelly) => ({
-                identifier: shelly.identifier,
-                mac: shelly.mac,
-                ip: shelly.ip,
-                authenticationRequired: shelly.isAuthenticationRequired,
-                firmwareVersion: shelly.firmwareVersion
-            }))
+            shellys.map((shelly) => shellyToJson(shelly))
         ).then((shellys) => response.status(200).json(shellys))
 })
 
 app.get('/api/shelly/search/:ipAddress', (request, response) => {
     const ipAddress = request.params.ipAddress;
-    if(ipAddress.length === 0){
-        response.status(400)
-    }
 
-    ShellyService.searchForShellyOnIpAddress(ipAddress).then((shelly) => {
-        response.status(200).json({
-            identifier: shelly.identifier,
-            mac: shelly.mac,
-            ip: shelly.ip,
-            authenticationRequired: shelly.isAuthenticationRequired,
-            firmwareVersion: shelly.firmwareVersion
-        });
-    }).catch(() => response.status(404))
+    try{
+        ShellyService.searchForShellyOnIpAddress(ipAddress).then((shelly) => {
+            response.status(200).json(shellyToJson(shelly));
+        }).catch(() => response.status(404).send())
+    } catch(error) {
+        response.status(400).json({ message: error.message })
+    }
 })
 
-
-
+function shellyToJson (shelly) {
+    return {
+        identifier: shelly.identifier,
+        mac: shelly.mac,
+        ip: shelly.ip,
+        authenticationRequired: shelly.isAuthenticationRequired,
+        firmwareVersion: shelly.firmwareVersion
+    }
+}

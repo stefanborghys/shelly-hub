@@ -14,14 +14,17 @@ class Model {
      * @private
      * @param {!string} identifier - The model's identifier, e.g. 'SHSW-1'
      * 
-     * @throws {TypeError} The identifier should be a string
+     * @throws {TypeError} The identifier is mandatory
+     * @throws {TypeError} The identifier should be of type string
      * @throws {TypeError} The identifier cannot be empty
      */
     constructor(identifier){
-        if(!_.isString(identifier)){
-            throw new TypeError('The model identifier is not a string');
-        }else if(identifier.length === 0){
-            throw new TypeError('The Shelly model identifier cannot be empty');
+        if (!identifier) {
+            throw new TypeError('The identifier is mandatory');
+        } else if(!_.isString(identifier)){
+            throw new TypeError('The identifier is not of type string');
+        } else if(identifier.length === 0){
+            throw new TypeError('The identifier cannot be empty');
         }
         this._identifier = identifier;
     }
