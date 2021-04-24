@@ -5,7 +5,7 @@ const port = 4000;
 
 const ShellyService = require('./api/services/shelly-service');
 
-app.listen(port, () => console.info(`🚀 Shelly-hub is running on http://localhost:${port}`));
+const server = app.listen(port, () => console.info(`🚀 Shelly-hub is running on: http://localhost:${port}`));
 
 app.get('/', (request, response) => {
   response.send('Hello World!');
@@ -35,4 +35,21 @@ app.get('/api/shelly/search/:ipAddress', (request, response) => {
   } catch (error) {
     response.status(400).json({ message: error.message });
   }
+});
+
+/**
+ * Handle Shelly Hub termination when the Node JS process is killed.
+ */
+process.on('SIGTERM', () => {
+  server.close(() => {
+    console.info('⛔ Shelly-Hub has been stopped');
+  });
+});
+
+/**
+ * Catch unexpected or uncaught exceptions.
+ */
+process.on('uncaughtException', (error) => {
+  console.error('🔥 Shelly-Hub intercepted an unexpected error!', error);
+  process.exit(1); // mandatory (as per the Node.js docs)
 });
