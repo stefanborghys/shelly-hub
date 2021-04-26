@@ -1,14 +1,16 @@
 {
   "name": "shelly-hub",
   "version": "1.0.0",
-  "description": "Shelly Hub",
+  "description": "Shelly-Hub",
   "main": "app.js",
   "private": true,
   "scripts": {
     "lint": "eslint --fix --color --format table src/js",
+    "build": "webpack",
+    "postbuild": "npm run document",
     "test": "",
     "document": "jsdoc --configure jsdoc.conf.json",
-    "start": "node src/app.js"
+    "start": "node dist/app.js"
   },
   "repository": {
     "type": "git",
@@ -27,11 +29,15 @@
     "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
-    "jsdoc": "^3.6.6"
+    "eslint-webpack-plugin": "^2.5.4",
+    "jsdoc": "^3.6.6",
+    "webpack": "^5.35.1",
+    "webpack-cli": "^4.6.0"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "express": "^4.17.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1"
   }
 }
