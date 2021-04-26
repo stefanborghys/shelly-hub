@@ -1,3 +1,3 @@
 # 🔌  Shelly-Hub
 
-Middleware to configure and manages Shelly devices in a local network.
+Middleware to configure and manage Shelly devices in a local network.
