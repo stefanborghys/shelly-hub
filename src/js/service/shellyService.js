@@ -1,6 +1,6 @@
 const axios = require('axios');
-const Shelly = require('../domain/common/shelly');
-const IpV4Address = require('../domain/common/ip-v4-address');
+const Shelly = require('../model/shelly');
+const IpV4Address = require('../model/ipV4Address');
 
 /**
  * Shelly service allowing shelly devices to be found in the local network.
@@ -14,14 +14,14 @@ class ShellyService {
    * @async
    * @returns {Shelly[]} An array of found Shelly devices
    */
-  async searchForShellys() {
+  static async searchForShellys() {
     const part1 = 192; const part2 = 168; const
       part3 = 1;
     let part4 = 1;
 
     const searches = [];
     for (; part4 < 255; part4 += 1) {
-      searches.push(this.searchForShellyOnIpAddress(`${part1}.${part2}.${part3}.${part4}`));
+      searches.push(ShellyService.searchForShellyOnIpAddress(`${part1}.${part2}.${part3}.${part4}`));
     }
 
     const results = await Promise.allSettled(searches);
@@ -37,7 +37,7 @@ class ShellyService {
    * @see https://shelly-api-docs.shelly.cloud/#shelly
    * @returns {Promise<Shelly>} The Shelly device's basic information when available
    */
-  searchForShellyOnIpAddress(ipAddress) {
+  static searchForShellyOnIpAddress(ipAddress) {
     const ipV4Address = IpV4Address.of(ipAddress);
 
     const isOk = (status) => status === 200;
@@ -61,9 +61,9 @@ class ShellyService {
 }
 
 /**
- * Exports a singleton ShellyService.
+ * Exports ShellyService.
  * Providing methods to search for Shelly devices in the local network.
  *
  * @module ShellyService
  */
-module.exports = new ShellyService();
+module.exports = ShellyService;

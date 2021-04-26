@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const port = 4000;
 
-const ShellyService = require('./api/services/shelly-service');
+const ShellyService = require('./js/service/shellyService');
 
 const server = app.listen(port, () => console.info(`🚀 Shelly-hub is running on: http://localhost:${port}`));
 

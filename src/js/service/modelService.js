@@ -1,4 +1,4 @@
-const Model = require('../domain/common/model');
+const Model = require('../model/model');
 
 /**
  * Manages Shelly models.
@@ -26,14 +26,18 @@ class ModelService {
    * @returns {Model|undefined} Shelly model or undefined when not found
    */
   findModel(identifier) {
-    if (identifier) {
-      for (const model of this._models.values()) {
-        if (model.identifier === identifier) {
-          return model;
-        }
+    const valuesIterator = this._models.values();
+    let next = valuesIterator.next();
+    let foundModel;
+    while (!next.done) {
+      const model = next.value;
+      if (model.identifier === identifier) {
+        foundModel = model;
+        break;
       }
+      next = valuesIterator.next();
     }
-    return undefined;
+    return foundModel;
   }
 }
 
