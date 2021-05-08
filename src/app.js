@@ -7,7 +7,7 @@ const port = 4000;
 app.use(express.json());
 app.use('/api/shelly', shellyRouter);
 
-const server = app.listen(port, () => console.info(`🚀 Shelly-hub is running on: http://localhost:${port}`));
+const server = app.listen(port, () => console.info(`🚀 Shelly-hub v1.0.0 is running on: http://localhost:${port}`));
 
 /**
  * Handle Shelly Hub termination when the Node JS process is killed.
