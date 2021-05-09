@@ -4,6 +4,7 @@ const _ = require('lodash');
  * Shelly device model.
  *
  * @class
+ * @since 1.0.0
  */
 class Model {
   /**
@@ -31,6 +32,7 @@ class Model {
    * Returns the model's identifier.
    *
    * @returns {string} The model's identifier, e.g. 'SHSW-1'
+   * @since 1.0.0
    */
   get identifier() {
     return this._identifier;
@@ -40,6 +42,7 @@ class Model {
    * Returns the model's string representation based upon it's identifier.
    *
    * @returns {string} The model's string representation
+   * @since 1.0.0
    */
   toString() {
     return `${this._identifier}`;
@@ -51,6 +54,7 @@ class Model {
    * @param {!string} identifier - The model's identifier, e.g. 'SHSW-1'
    *
    * @returns {Model} A new Shelly model
+   * @since 1.0.0
    */
   static of(identifier) {
     return new Model(identifier);
@@ -61,6 +65,7 @@ class Model {
  * Exports the Model.
  * Representing a Shelly device model.
  *
- * @module Model
+ * @module
+ * @since 1.0.0
  */
 module.exports = Model;

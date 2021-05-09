@@ -6,13 +6,16 @@ const IpV4Address = require('../model/ipV4Address');
  * Shelly service allowing shelly devices to be found in the local network.
  *
  * @class
+ * @since 1.0.0
  */
 class ShellyService {
   /**
    * Search for Shelly devices in the local network.
    *
    * @async
+   * @static
    * @returns {Shelly[]} An array of found Shelly devices
+   * @since 1.0.0
    */
   static async searchForShellys() {
     const part1 = 192; const part2 = 168; const
@@ -32,10 +35,12 @@ class ShellyService {
   /**
    * Search for Shelly basic information on given IP address.
    *
+   * @static
    * @param {!string} ipAddress - The IP address to be requested
    *
    * @see https://shelly-api-docs.shelly.cloud/#shelly
    * @returns {Promise<Shelly>} The Shelly device's basic information when available
+   * @since 1.0.0
    */
   static searchForShellyOnIpAddress(ipAddress) {
     const ipV4Address = IpV4Address.of(ipAddress);
@@ -64,6 +69,7 @@ class ShellyService {
  * Exports ShellyService.
  * Providing methods to search for Shelly devices in the local network.
  *
- * @module ShellyService
+ * @module
+ * @since 1.0.0
  */
 module.exports = ShellyService;

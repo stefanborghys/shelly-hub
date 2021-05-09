@@ -4,6 +4,7 @@ const _ = require('lodash');
  * Wrapper who guarantees a valid IP v4 address.
  *
  * @class
+ * @since 1.0.0
  */
 class IpV4Address {
   /**
@@ -66,6 +67,7 @@ class IpV4Address {
    * @throws {TypeError} The ipV4Address has an invalid format
    *
    * @returns {ipV4Address} A new IP v4 address
+   * @since 1.0.0
    */
   static of(ipV4Address) {
     return new IpV4Address(ipV4Address);
@@ -75,6 +77,7 @@ class IpV4Address {
    * Returns the IP address in dot-dicimal notation.
    *
    * @returns {string} The IP address in dot-dicimal notation
+   * @since 1.0.0
    */
   get ip() {
     return `${this._firstNumber}.${this._secondNumber}.${this._thirdNumber}.${this._fourthNumber}`;
@@ -84,6 +87,7 @@ class IpV4Address {
 /**
  * Exports IpV4Address.
  *
- * @module IpV4Address
+ * @module
+ * @since 1.0.0
  */
 module.exports = IpV4Address;
