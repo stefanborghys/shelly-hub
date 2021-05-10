@@ -1,11 +1,13 @@
 const express = require('express');
 const shellyRouter = require('./js/server/shellyRouter');
+const deviceRouter = require('./js/server/deviceRouter');
 
 const app = express();
 const port = 4000;
 
 app.use(express.json());
 app.use('/api/shelly', shellyRouter);
+app.use('/api/device', deviceRouter);
 
 const server = app.listen(port, () => console.info(`🚀 Shelly-hub v1.0.0 is running on: http://localhost:${port}`));
 
