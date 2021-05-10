@@ -31,6 +31,18 @@ class Model {
   }
 
   /**
+   * Creates a new model based upon an identifier.
+   *
+   * @param {!string} identifier - The model's identifier, e.g. 'SHSW-1'
+   *
+   * @returns {Model} A new Shelly model
+   * @since 1.0.0
+   */
+  static of(identifier) {
+    return new Model(identifier);
+  }
+
+  /**
    * Returns the model's identifier.
    *
    * @returns {string} The model's identifier, e.g. 'SHSW-1'
@@ -47,19 +59,7 @@ class Model {
    * @since 1.0.0
    */
   toString() {
-    return `${this._identifier}`;
-  }
-
-  /**
-   * Creates a new model based upon an identifier.
-   *
-   * @param {!string} identifier - The model's identifier, e.g. 'SHSW-1'
-   *
-   * @returns {Model} A new Shelly model
-   * @since 1.0.0
-   */
-  static of(identifier) {
-    return new Model(identifier);
+    return `${this.identifier}`;
   }
 }
 

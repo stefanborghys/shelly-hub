@@ -11,33 +11,33 @@ class IpV4Address {
    * Create a new IP v4 address.
    *
    * @private
-   * @param {!string} ipV4Address - IP v4 address
+   * @param {!string} ip - IP v4 address
    *
    * @throws {TypeError} The ipV4Address is not a valid version 4 IP address
    */
-  constructor(ipV4Address) {
-    this._ipV4Address = IpV4Address.validateIpV4Address(ipV4Address);
+  constructor(ip) {
+    this._ip = IpV4Address.validateIp(ip);
   }
 
-  static validateIpV4Address(ipV4Address) {
-    if (!net.isIPv4(ipV4Address)) {
-      throw new TypeError('The ipV4Address is not a valid version 4 IP address');
+  static validateIp(ip) {
+    if (!net.isIPv4(ip)) {
+      throw new TypeError('The ip is not a valid version 4 IP address');
     }
-    return ipV4Address;
+    return ip;
   }
 
   /**
    * Creates a new IP v4 address.
    *
-   * @param {!string} ipV4Address - IP v4 address
+   * @param {!string} ip - IP v4 address
    *
    * @throws {TypeError} The ipV4Address is not a valid version 4 IP address
    *
    * @returns {ipV4Address} A new IP v4 address
    * @since 1.0.0
    */
-  static of(ipV4Address) {
-    return new IpV4Address(ipV4Address);
+  static of(ip) {
+    return new IpV4Address(ip);
   }
 
   /**
@@ -47,7 +47,11 @@ class IpV4Address {
    * @since 1.0.0
    */
   get ip() {
-    return `${this._ipV4Address}`;
+    return this._ip;
+  }
+
+  toString() {
+    return `${this.ip}`;
   }
 }
 
