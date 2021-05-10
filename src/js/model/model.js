@@ -1,5 +1,3 @@
-const _ = require('lodash');
-
 /**
  * Shelly device model.
  *
@@ -18,14 +16,18 @@ class Model {
    * @throws {TypeError} The identifier cannot be empty
    */
   constructor(identifier) {
+    this._identifier = Model.validateIdentifier(identifier);
+  }
+
+  static validateIdentifier(identifier) {
     if (!identifier) {
       throw new TypeError('The identifier is mandatory');
-    } else if (!_.isString(identifier)) {
+    } else if (typeof identifier !== 'string') {
       throw new TypeError('The identifier is not of type string');
     } else if (identifier.length === 0) {
       throw new TypeError('The identifier cannot be empty');
     }
-    this._identifier = identifier;
+    return identifier;
   }
 
   /**
