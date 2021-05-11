@@ -19,7 +19,7 @@ class BasicAuthentication {
     } else if (userId.length === 0) {
       throw new TypeError('The userId cannot be empty');
     }
-    const REGEX = /^[\w]{1,100}$/;
+    const REGEX = /^[\w-]{1,100}$/;
     if (!REGEX.test(userId)) {
       throw new TypeError('The userId is invalid');
     }
@@ -34,7 +34,7 @@ class BasicAuthentication {
     } else if (password.length === 0) {
       throw new TypeError('The password cannot be empty');
     }
-    const REGEX = /^[\w]{1,100}$/;
+    const REGEX = /^[\w-]{1,100}$/;
     if (!REGEX.test(password)) {
       throw new TypeError('The password is invalid');
     }
