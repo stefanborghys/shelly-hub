@@ -3,8 +3,11 @@ const express = require('express');
 const router = express.Router();
 
 const Device = require('../model/device');
+const HttpError = require('../model/exception/http/httpError');
+
 const deviceService = require('../service/deviceService');
 const ShellyService = require('../service/shellyService');
+const StatusService = require('../service/statusService');
 
 const deviceToJson = (device) => ({
   identifier: device.identifier,
@@ -23,6 +26,12 @@ router.post('/', (request, response) => {
       : Device.withoutAuthentication(identifier, ip);
 
     return device;
+  }).then(async (device) => {
+    if (device.hasAuthentication) {
+      // Verify authentication
+      await StatusService.getStatus(device);
+    }
+    return device;
   }).then((device) => {
     try {
       deviceService.add(device);
@@ -35,7 +44,14 @@ router.post('/', (request, response) => {
 
     response.status(200).json(deviceToJson(device));
   })
-    .catch(() => response.status(400).send());
+    .catch((error) => {
+      if (error instanceof HttpError) {
+        response.status(error.statusCode).send();
+      } else {
+        console.error('Intercepted unexpected error', error);
+        response.status(500).send();
+      }
+    });
 });
 
 router.get('/', (request, response) => response.status(200).json(deviceService.all()
