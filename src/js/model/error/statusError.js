@@ -1,4 +1,4 @@
-class HttpError extends Error {
+class StatusError extends Error {
   constructor(statusCode, ...params) {
     super(...params);
     this._statusCode = statusCode;
@@ -9,4 +9,4 @@ class HttpError extends Error {
   }
 }
 
-module.exports = HttpError;
+module.exports = StatusError;
