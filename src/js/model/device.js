@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const ValidationError = require('./error/validationError');
 const BasicAuthentication = require('./basicAuthentication');
 const IpV4Address = require('./ipV4Address');
@@ -13,6 +14,7 @@ class Device {
     this._identifier = Device.validateIdentifier(identifier);
     this._ipV4Address = Device.validateIpV4Address(ipV4Address);
     this._basicAuthentication = Device.validateBasicAuthentication(basicAuthentication);
+    this._id = crypto.randomBytes(10).toString('hex');
   }
 
   static validateIdentifier(identifier) {
@@ -53,6 +55,10 @@ class Device {
     return new Device(identifier, ipV4Address);
   }
 
+  get id() {
+    return this._id;
+  }
+
   get identifier() {
     return this._identifier;
   }
@@ -70,7 +76,7 @@ class Device {
   }
 
   toString() {
-    return `${this.identifier} ${this.ipV4Address} ${this.hasAuthentication ? '🔐 ' : '🔓'}`;
+    return `${this.id} ${this.identifier} ${this.ipV4Address} ${this.hasAuthentication ? '🔐 ' : '🔓'}`;
   }
 }
 
