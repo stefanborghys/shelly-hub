@@ -9,6 +9,7 @@ const ShellyService = require('../service/shellyService');
 const StatusService = require('../service/statusService');
 
 const deviceToJson = (device) => ({
+  id: device.id,
   identifier: device.identifier,
   ip: device.ipV4Address.ip,
   hasAuthentication: device.hasAuthentication,
@@ -40,5 +41,11 @@ router.post('/', (request, response, next) => {
 
 router.get('/', (request, response) => response.status(200).json(deviceService.all()
   .map((device) => deviceToJson(device))));
+
+router.get('/:id', (request, response, next) => {
+  const { id } = request.params;
+
+  response.status(200).json(deviceToJson(deviceService.getById(id)))
+});
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const Device = require('../model/device');
 const ConflictError = require('../model/error/conflictError');
+const NotFoundError = require('../model/error/notFoundError');
 
 /**
  * Manages stored devices.
@@ -51,6 +52,24 @@ class DeviceService {
       next = valuesIterator.next();
     }
     return found;
+  }
+
+  getById(id) {
+    const valuesIterator = this._devices.values();
+    let next = valuesIterator.next();
+    let foundDevice;
+    while (!next.done) {
+      const nextDevice = next.value;
+      if (nextDevice.id === id) {
+        foundDevice = nextDevice;
+        break;
+      }
+      next = valuesIterator.next();
+    }
+    if(foundDevice){
+      return foundDevice;
+    }
+    throw new NotFoundError(`Device with id '${id}' could not be found`);
   }
 }
 
