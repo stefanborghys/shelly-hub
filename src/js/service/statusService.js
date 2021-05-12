@@ -1,8 +1,8 @@
 const axios = require('axios');
 
 const Status = require('../model/status');
-const UnauthorizedError = require('../model/exception/http/unauthorizedError');
-const UnknownError = require('../model/exception/http/unknownError');
+const UnauthorizedError = require('../model/error/http/unauthorizedError');
+const UnknownError = require('../model/error/http/unknownError');
 
 /**
  * Status service retrieving current device status information.

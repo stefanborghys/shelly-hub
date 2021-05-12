@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const Device = require('../model/device');
-const HttpError = require('../model/exception/http/httpError');
+const HttpError = require('../model/error/http/httpError');
 
 const deviceService = require('../service/deviceService');
 const ShellyService = require('../service/shellyService');
