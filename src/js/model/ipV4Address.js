@@ -1,4 +1,5 @@
 const net = require('net');
+const ValidationError = require('./error/validationError');
 
 /**
  * Wrapper who guarantees a valid IP v4 address.
@@ -21,7 +22,7 @@ class IpV4Address {
 
   static validateIp(ip) {
     if (!net.isIPv4(ip)) {
-      throw new TypeError('The ip is not a valid version 4 IP address');
+      throw new ValidationError('The ip is not a valid version 4 IP address');
     }
     return ip;
   }

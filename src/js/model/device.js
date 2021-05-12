@@ -1,3 +1,4 @@
+const ValidationError = require('./error/validationError');
 const BasicAuthentication = require('./basicAuthentication');
 const IpV4Address = require('./ipV4Address');
 
@@ -16,11 +17,11 @@ class Device {
 
   static validateIdentifier(identifier) {
     if (!identifier) {
-      throw new TypeError('The identifier is mandatory');
+      throw new ValidationError('The identifier is mandatory');
     } else if (typeof identifier !== 'string') {
       throw new TypeError('The identifier is not of type string');
     } else if (identifier.length === 0) {
-      throw new TypeError('The identifier cannot be empty');
+      throw new ValidationError('The identifier cannot be empty');
     }
     return identifier;
   }
