@@ -26,14 +26,10 @@ app.use('/api/device', deviceRouter);
 
 app.use((error, request, response, next) => { // eslint-disable-line no-unused-vars
   if (error instanceof StatusError) {
-    response.status(error.statusCode).send({
-      message: error.message,
-    });
+    response.status(error.statusCode).send(ErrorService.toJsonError(error));
   } else {
     console.error('🔥 Intercepted unexpected error', error);
-    response.status(500).send({
-      message: 'Intercepted unexpected error',
-    });
+    response.status(500).send(ErrorService.toJsonError(error));
   }
 });
 
