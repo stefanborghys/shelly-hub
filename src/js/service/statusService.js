@@ -1,8 +1,5 @@
 const axios = require('axios');
-
 const Status = require('../model/status');
-const UnauthorizedError = require('../model/error/http/unauthorizedError');
-const UnknownError = require('../model/error/http/unknownError');
 
 /**
  * Status service retrieving current device status information.
@@ -40,14 +37,7 @@ class StatusService {
           resolve(Status.of(updatable));
         }
         reject();
-      }))
-      .catch((error) => {
-        const { status, statusText } = error.response;
-        if (status === 401) {
-          throw new UnauthorizedError();
-        }
-        throw new UnknownError(status, statusText);
-      });
+      }));
   }
 }
 

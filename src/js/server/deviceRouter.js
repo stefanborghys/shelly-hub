@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 
 const Device = require('../model/device');
-const HttpError = require('../model/error/http/httpError');
 
 const deviceService = require('../service/deviceService');
 const ShellyService = require('../service/shellyService');
@@ -15,7 +14,7 @@ const deviceToJson = (device) => ({
   hasAuthentication: device.hasAuthentication,
 });
 
-router.post('/', (request, response) => {
+router.post('/', (request, response, next) => {
   const { ip, userId, password } = request.body;
 
   ShellyService.searchForShellyOnIpAddress(ip).then((shelly) => {
@@ -28,30 +27,15 @@ router.post('/', (request, response) => {
     return device;
   }).then(async (device) => {
     if (device.hasAuthentication) {
-      // Verify authentication
+      // verify authentication
       await StatusService.getStatus(device);
     }
     return device;
   }).then((device) => {
-    try {
-      deviceService.add(device);
-    } catch (error) {
-      if (error instanceof TypeError) {
-        response.status(409).send(error.message);
-      }
-      throw error;
-    }
-
+    deviceService.add(device);
     response.status(200).json(deviceToJson(device));
   })
-    .catch((error) => {
-      if (error instanceof HttpError) {
-        response.status(error.statusCode).send();
-      } else {
-        console.error('Intercepted unexpected error', error);
-        response.status(500).send();
-      }
-    });
+    .catch(next);
 });
 
 router.get('/', (request, response) => response.status(200).json(deviceService.all()

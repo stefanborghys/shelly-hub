@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const ShellyService = require('../service/shellyService');
+const NotFoundError = require('../model/error/notFoundError');
 
 const shellyToJson = (shelly) => ({
   identifier: shelly.identifier,
@@ -12,22 +13,21 @@ const shellyToJson = (shelly) => ({
   firmwareVersion: shelly.firmwareVersion,
 });
 
-router.get('/search', (request, response) => {
+router.get('/search', (request, response, next) => {
   ShellyService.searchForShellys()
     .then((shellys) => shellys.map((shelly) => shellyToJson(shelly)))
-    .then((shellys) => response.status(200).json(shellys));
+    .then((shellys) => response.status(200).json(shellys))
+    .catch(next);
 });
 
-router.get('/search/:ipAddress', (request, response) => {
+router.get('/search/:ipAddress', (request, response, next) => {
   const { ipAddress } = request.params;
 
-  try {
-    ShellyService.searchForShellyOnIpAddress(ipAddress).then((shelly) => {
-      response.status(200).json(shellyToJson(shelly));
-    }).catch(() => response.status(404).send());
-  } catch (error) {
-    response.status(400).json({ message: error.message });
-  }
+  ShellyService.searchForShellyOnIpAddress(ipAddress).then((shelly) => {
+    response.status(200).json(shellyToJson(shelly));
+  }).catch(() => {
+    throw new NotFoundError(`No Shelly could be found on address: '${ipAddress}'`);
+  }).catch(next);
 });
 
 module.exports = router;
