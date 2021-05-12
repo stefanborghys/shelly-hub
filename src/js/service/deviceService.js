@@ -1,4 +1,5 @@
 const Device = require('../model/device');
+const ConflictError = require('../model/error/conflictError');
 
 /**
  * Manages stored devices.
@@ -21,7 +22,7 @@ class DeviceService {
   add(device) {
     DeviceService.validateDevice(device);
     if (this.has(device)) {
-      throw new TypeError('The device is already added');
+      throw new ConflictError('The device has already been added');
     }
     this._devices.add(device);
   }
