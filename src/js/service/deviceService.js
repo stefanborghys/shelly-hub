@@ -20,15 +20,21 @@ class DeviceService {
     return device;
   }
 
-  add(device) {
-    DeviceService.validateDevice(device);
-    if (this.has(device)) {
-      throw new ConflictError('The device has already been added');
-    }
-    this._devices.add(device);
+  async add(ip, userId, password) {
+    return Device.of(ip, userId, password)
+      .then((device) => {
+        if (this.hasDeviceWithIp(device.ipV4Address)) {
+          throw new ConflictError(`A device with ip '${device.ipV4Address.ip}' has already been added`);
+        }
+        return device;
+      })
+      .then((device) => {
+        this._devices.add(device);
+        return device;
+      });
   }
 
-  all() {
+  getAll() {
     const valuesIterator = this._devices.values();
     const devices = [];
     let next = valuesIterator.next();
@@ -39,13 +45,21 @@ class DeviceService {
     return devices;
   }
 
-  has(device) {
+  hasDeviceWithIp(ipV4Address) {
+    return this._has(((device) => device.ipV4Address.ip === ipV4Address.ip));
+  }
+
+  hasDeviceWithId(id) {
+    return this._has(((device) => device.id === id));
+  }
+
+  _has(isTheDeviceToBeFound) {
     const valuesIterator = this._devices.values();
     let next = valuesIterator.next();
     let found = false;
     while (!next.done) {
       const nextDevice = next.value;
-      if (nextDevice.ipV4Address.ip === device.ipV4Address.ip) {
+      if (isTheDeviceToBeFound(nextDevice)) {
         found = true;
         break;
       }
@@ -54,7 +68,7 @@ class DeviceService {
     return found;
   }
 
-  getById(id) {
+  findById(id) {
     const valuesIterator = this._devices.values();
     let next = valuesIterator.next();
     let foundDevice;
@@ -66,7 +80,7 @@ class DeviceService {
       }
       next = valuesIterator.next();
     }
-    if(foundDevice){
+    if (foundDevice) {
       return foundDevice;
     }
     throw new NotFoundError(`Device with id '${id}' could not be found`);
