@@ -16,7 +16,7 @@ const app = express();
 const port = 4000;
 
 app.use((request, response, next) => {
-  console.info(`📥 ${request.method} ${request.url}`);
+  console.info(`📥 ${request.method}\t${request.url}`);
   next();
 });
 
