@@ -77,9 +77,10 @@ class DeviceService {
 }
 
 /**
-   * Exports a singleton ConfigurationService.
-   *
-   * @module
-   * @since 1.0.0
-   */
+ * Exports a singleton DeviceService.
+ * Responsible for managing stored devices.
+ *
+ * @module
+ * @since 1.0.0
+ */
 module.exports = new DeviceService();

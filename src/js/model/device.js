@@ -67,14 +67,32 @@ class Device {
     });
   }
 
+  /**
+   * Returns the id.
+   *
+   * @returns {string} The device's unique id, e.g. '12345678'
+   * @since 1.0.0
+   */
   get id() {
     return this._id;
   }
 
+  /**
+   * Returns the model identifier.
+   *
+   * @returns {string} The device's model identifier, e.g. 'SHSW-1'
+   * @since 1.0.0
+   */
   get identifier() {
     return this._identifier;
   }
 
+  /**
+   * Returns the device's IP v4 address.
+   *
+   * @returns {IpV4Address} The device's IP v4 address
+   * @since 1.0.0
+   */
   get ipV4Address() {
     return this._ipV4Address;
   }
@@ -83,6 +101,12 @@ class Device {
     this._ipV4Address = this.validateIpV4Address(ipV4Address);
   }
 
+  /**
+   * Returns the device's basic authentication.
+   *
+   * @returns {BasicAuthentication | undefined} The device's basic authentication, if provided
+   * @since 1.0.0
+   */
   get basicAuthentication() {
     return this._basicAuthentication;
   }
@@ -91,6 +115,12 @@ class Device {
     this._basicAuthentication = this.validateBasicAuthentication(basicAuthentication);
   }
 
+  /**
+   * Returns if the device requires basic authentication.
+   *
+   * @returns {boolean} If basic authentication is required
+   * @since 1.0.0
+   */
   get hasAuthentication() {
     return this.basicAuthentication instanceof BasicAuthentication;
   }

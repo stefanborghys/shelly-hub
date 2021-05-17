@@ -48,13 +48,14 @@ class BasicAuthentication {
   }
 
   /**
-     * Calculates the authorization header's basic authentication value.
-     *
-     * WARN: only able to process ASCII characters in username and password!
-     * UTF-8 support needs to be implemented when needed.
-     *
-     * @returns {string}
-     */
+   * Calculates the authorization header's basic authentication value.
+   *
+   * WARN: only able to process ASCII characters in username and password!
+   * UTF-8 support needs to be implemented when needed.
+   *
+   * @returns {string} The basic authentication
+   * @since 1.0.0
+   */
   get authorization() {
     return `Basic ${BasicAuthentication.base64Encode(`${this.userId}:${this.password}`)}`;
   }
