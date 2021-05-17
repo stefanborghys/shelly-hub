@@ -29,7 +29,7 @@ class StatusError extends Error {
 }
 
 /**
- * Exports an StatusError.
+ * Exports a StatusError.
  *
  * @module
  */

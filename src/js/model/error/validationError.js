@@ -18,7 +18,7 @@ class ValidationError extends StatusError {
 }
 
 /**
- * Exports an ValidationError.
+ * Exports a ValidationError.
  *
  * @module
  */
