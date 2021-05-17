@@ -3,6 +3,9 @@ const ValidationError = require('./error/validationError');
 const BasicAuthentication = require('./basicAuthentication');
 const IpV4Address = require('./ipV4Address');
 
+const ShellyService = require('../service/shellyService');
+const StatusService = require('../service/statusService');
+
 /**
  * Shelly device managed by the hub.
  *
@@ -10,11 +13,11 @@ const IpV4Address = require('./ipV4Address');
  * @since 1.0.0
  */
 class Device {
-  constructor(identifier, ipV4Address, basicAuthentication = undefined) {
+  constructor(identifier, ipV4Address, basicAuthentication = undefined, id = crypto.randomBytes(10).toString('hex')) {
     this._identifier = Device.validateIdentifier(identifier);
     this._ipV4Address = Device.validateIpV4Address(ipV4Address);
     this._basicAuthentication = Device.validateBasicAuthentication(basicAuthentication);
-    this._id = crypto.randomBytes(10).toString('hex');
+    this._id = id;
   }
 
   static validateIdentifier(identifier) {
@@ -44,15 +47,23 @@ class Device {
     return basicAuthentication;
   }
 
-  static withAuthentication(identifier, ip, userId, password) {
+  static async of(ip, userId, password) {
     const ipV4Address = IpV4Address.of(ip);
-    const basicAuthentication = BasicAuthentication.of(userId, password);
-    return new Device(identifier, ipV4Address, basicAuthentication);
-  }
+    return ShellyService.searchForShellyOnIpAddress(ip).then((shelly) => {
+      const { identifier, isAuthenticationRequired } = shelly;
 
-  static withoutAuthentication(identifier, ip) {
-    const ipV4Address = IpV4Address.of(ip);
-    return new Device(identifier, ipV4Address);
+      if (isAuthenticationRequired) {
+        const basicAuthentication = BasicAuthentication.of(userId, password);
+        return new Device(identifier, ipV4Address, basicAuthentication);
+      }
+      return new Device(identifier, ipV4Address);
+    }).then(async (device) => {
+      if (device.hasAuthentication) {
+        // verify authentication by performing an authenticated status request
+        await StatusService.getStatus(device);
+      }
+      return device;
+    });
   }
 
   get id() {
@@ -67,8 +78,16 @@ class Device {
     return this._ipV4Address;
   }
 
+  set ipV4Address(ipV4Address) {
+    this._ipV4Address = this.validateIpV4Address(ipV4Address);
+  }
+
   get basicAuthentication() {
     return this._basicAuthentication;
+  }
+
+  set basicAuthentication(basicAuthentication) {
+    this._basicAuthentication = this.validateBasicAuthentication(basicAuthentication);
   }
 
   get hasAuthentication() {
