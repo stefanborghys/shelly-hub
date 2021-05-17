@@ -1,4 +1,3 @@
-import Device from '../domain/common/settings/device';
 import AccessPoint from '../domain/common/settings/wifi/accessPoint';
 import Client from '../domain/common/settings/wifi/client';
 import CoIot from '../domain/common/settings/coIot';
@@ -20,7 +19,6 @@ class Common {
      */
   static getSettings(basicAuthentication = undefined) {
     // /settings
-    const device = new Device('SHSW-21', '16324CAABBCC', 'shelly1-B929CC');
     const accessPoint = new AccessPoint(false, 'shellyswitch-163248', 'secret-password-1234');
     const client = new Client(true, 'Castle', 'dhcp', null, null, null, null);
     const fallbackClient = new Client(true, 'Castle', 'dhcp', null, null, null, null);
@@ -35,7 +33,7 @@ class Common {
 
     const timezoneInfo = TimezoneInfo.of('Europe/Sofia', true, 0, false, true);
     const timeInfo = new TimeInfo('16:40', 0, timezoneInfo);
-    return new Settings(device, accessPoint, client, fallbackClient, mqtt, coiot, sntp, login, '123456', 'shellyMODEL-16324CAABBCC', '20170427-114337/master@79dbb397', true, buildInfo, cloud, location, timeInfo);
+    return new Settings(accessPoint, client, fallbackClient, mqtt, coiot, sntp, login, '123456', 'shellyMODEL-16324CAABBCC', '20170427-114337/master@79dbb397', true, buildInfo, cloud, location, timeInfo);
   }
 
   /**
