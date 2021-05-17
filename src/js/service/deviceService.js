@@ -13,13 +13,6 @@ class DeviceService {
     this._devices = new Set();
   }
 
-  static validateDevice(device) {
-    if (!(device instanceof Device)) {
-      throw new TypeError('The device is not of type Device');
-    }
-    return device;
-  }
-
   async add(ip, userId, password) {
     return Device.of(ip, userId, password)
       .then((device) => {
@@ -47,10 +40,6 @@ class DeviceService {
 
   hasDeviceWithIp(ipV4Address) {
     return this._has(((device) => device.ipV4Address.ip === ipV4Address.ip));
-  }
-
-  hasDeviceWithId(id) {
-    return this._has(((device) => device.id === id));
   }
 
   _has(isTheDeviceToBeFound) {

@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+
 const ValidationError = require('./error/validationError');
 const BasicAuthentication = require('./basicAuthentication');
 const IpV4Address = require('./ipV4Address');
