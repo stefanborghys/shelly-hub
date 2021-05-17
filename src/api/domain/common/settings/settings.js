@@ -1,6 +1,5 @@
 class Settings {
-  constructor(device, accessPoint, client, fallbackClient, mqtt, coIot, sntp, login, pinCode, name, firmwareVersion, discoverable, buildInfo, cloud, location, timeInfo) {
-    this.device = device;
+  constructor(accessPoint, client, fallbackClient, mqtt, coIot, sntp, login, pinCode, name, firmwareVersion, discoverable, buildInfo, cloud, location, timeInfo) {
     this.accessPoint = accessPoint;
     this.client = client;
     this.fallbackClient = fallbackClient;
@@ -16,10 +15,6 @@ class Settings {
     this.cloud = cloud;
     this.location = location;
     this.timeInfo = timeInfo;
-  }
-
-  get device() {
-    return this.device;
   }
 
   /**

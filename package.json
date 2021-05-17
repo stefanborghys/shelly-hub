@@ -10,7 +10,8 @@
     "postbuild": "npm run document",
     "test": "",
     "document": "jsdoc --configure jsdoc.conf.json",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "audit": "npm audit"
   },
   "repository": {
     "type": "git",

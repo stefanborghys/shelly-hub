@@ -97,7 +97,7 @@ class Shelly {
    * @since 1.0.0
    */
   toString() {
-    return `${this._ip} ${this._mac} ${this.firmwareVersion} ${this._identifier}`;
+    return `${this.ip} ${this.mac} ${this.firmwareVersion} ${this.identifier}`;
   }
 }
 
