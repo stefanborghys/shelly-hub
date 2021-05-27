@@ -11,14 +11,16 @@ describe('Shelly-Hub', () => {
       return result;
     }));
 
-  test('Shelly search', () => {
-    console.info('start test');
+  test('No devices should be found when none are stored', () => {
+    console.info('🚦 No devices should be found when none are stored');
 
     return requestShellyHub.get('/api/device')
       .set('Accept', 'application/json')
       .expect('Content-Type', /application\/json/)
-      .expect(200)
-      .expect([]);
+      .expect(200, [])
+      .expect((response) => {
+        expect(response.body).toHaveLength(0);
+      });
   });
 
   afterAll(() => {
