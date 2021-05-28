@@ -4,10 +4,22 @@ const { spawn } = require('child_process');
 const TimeoutUtils = require('./timeoutUtils');
 
 /**
+ * Shelly-Hub wrapper which allows to interact with a running application.
+ * Or allows to start a new one.
+ * 
  * @class
  * @since 1.0.0
  */
 class ShellyHub {
+
+  /**
+   * Checks if a Shelly-Hub is up and running by requesting it's status.
+   * 
+   * @param {!number} port - The Shelly-Hub's port number
+   * 
+   * @returns {Promise} returns true when up, otherwise false or an error when something went wrong
+   * @since 1.0.0
+   */
   static isUp(port) {
     return new Promise((resolve, reject) => {
       http.get(`http://localhost:${port}/api/hub/status`, {
@@ -34,6 +46,14 @@ class ShellyHub {
     });
   }
 
+  /**
+   * Starts a new Shelly-Hub on given port.
+   * 
+   * @param {!string} pathToApp - The path to the Shelly-Hub's app.js file
+   * @param {!number} port - The Shelly-Hub's port number
+   * @returns {Promise} returns true when started, otherwise an error 
+   * @since 1.0.0
+   */
   static start(pathToApp, port) {
     const appChildProcess = spawn('node', [pathToApp, `--port=${port}`]);
 
@@ -73,6 +93,13 @@ class ShellyHub {
     });
   }
 
+  /**
+   * Tries to stop a running Shelly-Hub by calling it's stop endpoint.
+   * 
+   * @param {!number} port - The Shelly-Hub's port number
+   * @returns {Promise} returns true when stopped, otherwise an error 
+   * @since 1.0.0
+   */
   static stop(port) {
     return new Promise((resolve, reject) => {
       http.get(`http://localhost:${port}/api/hub/stop`, { timeout: 1000 }, (response) => resolve(response.statusCode === 200))
@@ -81,4 +108,11 @@ class ShellyHub {
   }
 }
 
+/**
+ * Exports a Shelly-Hub wrapper.
+ * Mainly usable for integration testing purposes.
+ * 
+ * @module
+ * @since 1.0.0
+ */
 module.exports = ShellyHub;

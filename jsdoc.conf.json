@@ -16,7 +16,7 @@
     ],
     "recurseDepth": 10,
     "source": {
-        "include": ["src"],
+        "include": ["src", "test"],
         "includePattern": ".+\\.js(doc)?$",
         "excludePattern": "(^|\\/|\\\\)_"
     },
