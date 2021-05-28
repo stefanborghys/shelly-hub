@@ -4,10 +4,11 @@ const ShellyHub = require('./shellyHub');
 
 describe('Shelly-Hub', () => {
   let requestShellyHub;
+  const port = 4001;
 
-  beforeAll(() => ShellyHub.start(path.resolve(__dirname, '../src/app.js'))
+  beforeAll(() => ShellyHub.start(path.resolve(__dirname, '../src/app.js'), port)
     .then((result) => {
-      requestShellyHub = request('http://localhost:4000');
+      requestShellyHub = request(`http://localhost:${port}`);
       return result;
     }));
 
@@ -25,6 +26,6 @@ describe('Shelly-Hub', () => {
 
   afterAll(() => {
     console.info('⛔ Stopping the Shelly-Hub');
-    return ShellyHub.stop();
+    return ShellyHub.stop(port);
   });
 });

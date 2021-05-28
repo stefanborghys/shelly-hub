@@ -8,9 +8,9 @@ const TimeoutUtils = require('./timeoutUtils');
  * @since 1.0.0
  */
 class ShellyHub {
-  static isUp() {
+  static isUp(port) {
     return new Promise((resolve, reject) => {
-      http.get('http://localhost:4000/api/hub/status', {
+      http.get(`http://localhost:${port}/api/hub/status`, {
         timeout: 1000,
       }, (response) => {
         const { statusCode } = response;
@@ -34,8 +34,8 @@ class ShellyHub {
     });
   }
 
-  static start(pathToApp) {
-    const appChildProcess = spawn('node', [pathToApp]);
+  static start(pathToApp, port) {
+    const appChildProcess = spawn('node', [pathToApp, `--port=${port}`]);
 
     appChildProcess.stdout.on('data', (data) => console.debug(`Shelly-Hub: ${data}`));
 
@@ -53,7 +53,7 @@ class ShellyHub {
         do {
           console.info('🛎  Requesting Shelly-Hub\'s status ...');
           const [isShellyHubUp] = await Promise.all([ // eslint-disable-line no-await-in-loop
-            ShellyHub.isUp(), TimeoutUtils.resolveAfterNumberOfMilliseconds(300),
+            ShellyHub.isUp(port), TimeoutUtils.resolveAfterNumberOfMilliseconds(300),
           ]);
           isHubUp = isShellyHubUp;
         } while (!isHubUp);
@@ -73,9 +73,9 @@ class ShellyHub {
     });
   }
 
-  static stop() {
+  static stop(port) {
     return new Promise((resolve, reject) => {
-      http.get('http://localhost:4000/api/hub/stop', { timeout: 1000 }, (response) => resolve(response.statusCode === 200))
+      http.get(`http://localhost:${port}/api/hub/stop`, { timeout: 1000 }, (response) => resolve(response.statusCode === 200))
         .on('error', (error) => reject(error));
     });
   }
