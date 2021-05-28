@@ -4,8 +4,11 @@ module.exports = {
     es2021: true,
     node: true,
   },
+  plugins: ['jest'],
   extends: [
     'airbnb-base',
+    'plugin:jest/recommended',
+    'plugin:jest/style'
   ],
   parserOptions: {
     ecmaVersion: 12,
@@ -25,5 +28,7 @@ module.exports = {
     }],
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
     'no-console': 'off',
+    
   },
+  
 };
