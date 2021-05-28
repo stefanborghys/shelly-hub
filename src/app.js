@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const parseArgs = require('minimist');
 
 const shellyRouter = require('./js/server/shellyRouter');
 const deviceRouter = require('./js/server/deviceRouter');
@@ -15,7 +16,19 @@ axios.interceptors.response.use((response) => response, (error) => {
 });
 
 const app = express();
-const port = 4000;
+
+const argv = parseArgs(process.argv.slice(2), {
+  default: {
+    port: 0, // 0 will result in an arbitrary unused port
+  },
+});
+
+const { port } = argv;
+
+if (!(typeof port === 'number' && port >= 0 && port <= 65535)) {
+  console.error('💡 Shelly-Hub requires a valid port number between 0 and 65535!\n - use \'--port=0\' to select an arbitrary unused port\n - or specify one yourself e.g. \'--port=4000\'');
+  process.exit(1);
+}
 
 app.use((request, response, next) => {
   console.info(`📥 ${request.method}\t${request.url}`);
@@ -36,7 +49,17 @@ app.use((error, request, response, next) => { // eslint-disable-line no-unused-v
   }
 });
 
-const server = app.listen(port, () => console.info(`🚀 Shelly-Hub v1.0.0 is running on: http://localhost:${port}`));
+const server = app.listen(port);
+
+server.on('listening', () => {
+  console.info(`🚀 Shelly-Hub v1.0.0 is running on: http://localhost:${server.address().port}`);
+});
+
+server.on('error', (error) => {
+  if (error.code === 'EADDRINUSE') {
+    console.error(`💥 Address http://localhost:${error.port} is already in use!`);
+  }
+});
 
 /**
  * Handle Shelly Hub termination when the Node JS process is killed.
