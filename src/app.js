@@ -31,7 +31,7 @@ const { port } = parseArgs(process.argv.slice(2), {
 });
 
 /**
- * Validate the port number. When invalid logs an error and closes the running process.
+ * Validate the port number. When invalid, logs an error and closes the running process.
  */
 if (!(typeof port === 'number' && port >= 0 && port <= 65535)) {
   console.error('💡 Shelly-Hub requires a valid port number between 0 and 65535!\n - use \'--port=0\' to select an arbitrary unused port\n - or specify one yourself e.g. \'--port=4000\'');
@@ -66,14 +66,14 @@ app.use((error, request, response, next) => { // eslint-disable-line no-unused-v
 const server = app.listen(port);
 
 /**
- * Notify the Shelly-Hub is running on (given) port.
+ * Notifies that the Shelly-Hub is running on (given) port.
  */
 server.on('listening', () => {
   console.info(`🚀 Shelly-Hub v1.0.0 is running on: http://localhost:${server.address().port}`);
 });
 
 /**
- * Intercepts server errors.
+ * Intercepts specific server errors and logs a message.
  */
 server.on('error', (error) => {
   if (error.code === 'EADDRINUSE') {
