@@ -19,7 +19,7 @@ class ErrorService {
     if (statusCode === 401) {
       throw new UnauthorizedError('Could not authenticate with the Shelly device, please verify the credentials!');
     }
-    throw new UnknownError(statusCode, statusText);
+    throw new UnknownError(statusText, statusCode);
   }
 
   /**

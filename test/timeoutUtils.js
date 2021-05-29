@@ -1,6 +1,6 @@
 /**
  * Defines timeout utils.
- * 
+ *
  * @class
  * @since 1.0.0
  */
@@ -32,7 +32,7 @@ class TimeoutUtils {
 /**
  * Exports timeout utils.
  * Mainly used for test purposes.
- * 
+ *
  * @module
  * @since 1.0.0
  */

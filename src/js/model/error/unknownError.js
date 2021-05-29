@@ -10,10 +10,10 @@ class UnknownError extends StatusError {
   /**
    * Create a new UnknownError.
    *
-   * @param {number} [statusCode=500] - The HTTP status code to categorise the error with
    * @param {!string} statusText - The message to add some context or clarification to the error
+   * @param {number} [statusCode=500] - The HTTP status code to categorise the error with
    */
-  constructor(statusCode = 500, statusText) {
+  constructor(statusText, statusCode = 500) {
     super(statusCode, statusText);
   }
 }
