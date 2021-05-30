@@ -2,7 +2,7 @@ const IpV4Address = require('../../../src/js/model/ipV4Address');
 const ValidationError = require('../../../src/js/model/error/validationError');
 
 describe('IpV4Address', () => {
-  test('A IpV4Address can be constructed', () => {
+  test('An IpV4Address can be constructed', () => {
     const ip = '192.168.1.12';
 
     const ipV4Address = new IpV4Address(ip);
@@ -11,7 +11,7 @@ describe('IpV4Address', () => {
     expect(ipV4Address.toString()).toEqual(`${ip}`);
   });
 
-  test('A IpV4Address can be staticly created', () => {
+  test('An IpV4Address can be staticly created', () => {
     const ip = '192.168.1.23';
 
     const ipV4Address = IpV4Address.of(ip);
