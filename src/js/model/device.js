@@ -23,11 +23,9 @@ class Device {
 
   static validateIdentifier(identifier) {
     if (!identifier) {
-      throw new ValidationError('The identifier is mandatory');
+      throw new ValidationError('The identifier is mandatory and cannot be empty');
     } else if (typeof identifier !== 'string') {
       throw new TypeError('The identifier is not of type string');
-    } else if (identifier.length === 0) {
-      throw new ValidationError('The identifier cannot be empty');
     }
     return identifier;
   }
@@ -98,7 +96,7 @@ class Device {
   }
 
   set ipV4Address(ipV4Address) {
-    this._ipV4Address = this.validateIpV4Address(ipV4Address);
+    this._ipV4Address = Device.validateIpV4Address(ipV4Address);
   }
 
   /**
@@ -112,7 +110,7 @@ class Device {
   }
 
   set basicAuthentication(basicAuthentication) {
-    this._basicAuthentication = this.validateBasicAuthentication(basicAuthentication);
+    this._basicAuthentication = Device.validateBasicAuthentication(basicAuthentication);
   }
 
   /**
@@ -126,7 +124,7 @@ class Device {
   }
 
   toString() {
-    return `${this.id} ${this.identifier} ${this.ipV4Address} ${this.hasAuthentication ? '🔐 ' : '🔓'}`;
+    return `${this.id} ${this.identifier} ${this.ipV4Address} ${this.hasAuthentication ? '🔐' : '🔓'}`;
   }
 }
 

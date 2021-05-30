@@ -15,11 +15,9 @@ class BasicAuthentication {
 
   static validateUserId(userId) {
     if (!userId) {
-      throw new ValidationError('The userId is mandatory');
+      throw new ValidationError('The userId is mandatory and cannot be empty');
     } else if (typeof userId !== 'string') {
       throw new TypeError('The userId is not of type string');
-    } else if (userId.length === 0) {
-      throw new ValidationError('The userId cannot be empty');
     }
     const REGEX = /^[\w-]{1,100}$/;
     if (!REGEX.test(userId)) {
@@ -30,11 +28,9 @@ class BasicAuthentication {
 
   static validatePassword(password) {
     if (!password) {
-      throw new ValidationError('The password is mandatory');
+      throw new ValidationError('The password is mandatory and cannot be empty');
     } else if (typeof password !== 'string') {
       throw new TypeError('The password is not of type string');
-    } else if (password.length === 0) {
-      throw new ValidationError('The password cannot be empty');
     }
     const REGEX = /^[\w-]{1,100}$/;
     if (!REGEX.test(password)) {
