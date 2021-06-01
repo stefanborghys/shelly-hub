@@ -16,7 +16,7 @@ describe('DeviceService', () => {
   }
 
   describe('getAll', () => {
-    test('A start no devices should be returned', async () => {
+    test('At start no devices should be returned', async () => {
       expect(DeviceService.getAll()).toHaveLength(0);
     });
 
@@ -74,7 +74,7 @@ describe('DeviceService', () => {
   });
 
   describe('hasDeviceWithIp', () => {
-    test('A device is marked as added when looked for by ip', async () => {
+    test('A device is marked added, when looking it up by ip', async () => {
       const ip = '192.168.4.1';
       mockShellyOnce(ip);
       const addedDevice = await DeviceService.add(ip);
@@ -82,7 +82,7 @@ describe('DeviceService', () => {
       expect(DeviceService.hasDeviceWithIp(addedDevice.ipV4Address)).toEqual(true);
     });
 
-    test('A device is marked as not added when looking for an unknown ip', () => {
+    test('A device is marked not added, when looking up an unknown ip', () => {
       expect(DeviceService.hasDeviceWithIp(IpV4Address.of('1.2.3.4'))).toEqual(false);
     });
   });

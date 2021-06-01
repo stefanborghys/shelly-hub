@@ -17,7 +17,7 @@ describe('ErrorService', () => {
   });
 
   describe('toJsonError', () => {
-    test('A error of instance StatusError can be converted to a JSON error', () => {
+    test('An error of instance StatusError can be converted to a JSON error', () => {
       const statusText = 'Test error message';
       expect(ErrorService.toJsonError(new ValidationError(statusText))).toEqual({
         message: statusText,
@@ -38,7 +38,7 @@ describe('ErrorService', () => {
       });
     });
 
-    test('A unknown (error) can be converted to a JSON error with default message', () => {
+    test('An unknown (error) can be converted to a JSON error with default message', () => {
       expect(ErrorService.toJsonError('test')).toEqual({
         message: 'Intercepted an unexpected error',
       });
