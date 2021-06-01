@@ -13,7 +13,7 @@ class DeviceService {
     this._devices = new Set();
   }
 
-  async add(ip, userId, password) {
+  add(ip, userId, password) {
     return Device.of(ip, userId, password)
       .then((device) => {
         if (this.hasDeviceWithIp(device.ipV4Address)) {
@@ -39,7 +39,7 @@ class DeviceService {
   }
 
   hasDeviceWithIp(ipV4Address) {
-    return this._has(((device) => device.ipV4Address.ip === ipV4Address.ip));
+    return this._has((device) => device.ipV4Address.ip === ipV4Address.ip);
   }
 
   _has(isTheDeviceToBeFound) {
