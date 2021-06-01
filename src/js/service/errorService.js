@@ -33,6 +33,8 @@ class ErrorService {
     const jsonError = {};
     if (error instanceof StatusError) {
       jsonError.message = error.message;
+    } else if (error instanceof Error) {
+      jsonError.message = error.message;
     } else {
       jsonError.message = 'Intercepted an unexpected error';
     }

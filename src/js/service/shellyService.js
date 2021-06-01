@@ -48,7 +48,7 @@ class ShellyService {
     const isOk = (status) => status === 200;
 
     return axios.get(`http://${ipV4Address.ip}:80/shelly`, { timeout: 2000, validateStatus: isOk })
-      .then((response) => new Promise((resolve, reject) => {
+      .then((response) => {
         if (response.headers['content-type'] === 'application/json') {
           const {
             type, mac, auth, fw,
@@ -58,10 +58,10 @@ class ShellyService {
           // @see https://nodejs.org/api/http.html#http_class_http_clientrequest
           const { host } = response.request;
 
-          resolve(Shelly.of(type, mac, host, auth, fw));
+          return Shelly.of(type, mac, host, auth, fw);
         }
-        reject();
-      }));
+        throw new Error('The shelly response could not be processed');
+      });
   }
 }
 

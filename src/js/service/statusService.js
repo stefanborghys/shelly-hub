@@ -31,13 +31,13 @@ class StatusService {
     const config = { headers, timeout: 2000, validateStatus: isOk };
 
     return axios.get(`http://${ipV4Address.ip}:80/status`, config)
-      .then((response) => new Promise((resolve, reject) => {
+      .then((response) => {
         if (response.headers['content-type'] === 'application/json') {
           const updatable = response.data.has_update;
-          resolve(Status.of(updatable));
+          return Status.of(updatable);
         }
-        reject();
-      }));
+        throw new Error('The status response could not be processed');
+      });
   }
 }
 
