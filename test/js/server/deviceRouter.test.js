@@ -24,10 +24,17 @@ describe('DeviceRouter', () => {
     return Device.of(ip);
   }
 
-  test('Request all devices', async () => {
+  const toJSON = (device) => ({
+    id: device.id,
+    identifier: device.identifier,
+    ip: device.ipV4Address.ip,
+    hasAuthentication: device.hasAuthentication,
+  });
+
+  test('Get all devices', async () => {
     const devices = await Promise.all([createDevice(1), createDevice(2), createDevice(3)]);
 
-    DeviceService.getAll.mockReturnValue(devices);
+    DeviceService.getAll.mockReturnValueOnce(devices);
 
     return request(app)
       .get('/api/device')
@@ -37,16 +44,44 @@ describe('DeviceRouter', () => {
       .expect((response) => {
         expect(response.body).toHaveLength(devices.length);
 
-        const expectedDevices = devices.map((device) => ({
-          id: device.id,
-          identifier: device.identifier,
-          ip: device.ipV4Address.ip,
-          hasAuthentication: device.hasAuthentication,
-        }));
+        const expectedDevices = devices.map(toJSON);
 
         expect(response.body).toEqual(expectedDevices);
 
         expect(DeviceService.getAll).toHaveBeenCalledTimes(1);
+      });
+  });
+
+  test('Get device by id', async () => {
+    const device = await createDevice(1);
+
+    DeviceService.findById.mockReturnValueOnce(device);
+
+    return request(app)
+      .get(`/api/device/${device.id}`)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .expect((response) => {
+        expect(response.body).toEqual(toJSON(device));
+        expect(DeviceService.findById).toHaveBeenCalledTimes(1);
+      });
+  });
+
+  test('Add a device', async () => {
+    const device = await createDevice(1);
+
+    DeviceService.add.mockResolvedValueOnce(device);
+
+    return request(app)
+      .post('/api/device/')
+      .send({ ip: device.ipV4Address.ip })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .expect((response) => {
+        expect(response.body).toEqual(toJSON(device));
+        expect(DeviceService.add).toHaveBeenCalledTimes(1);
       });
   });
 });
