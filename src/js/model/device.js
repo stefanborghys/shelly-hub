@@ -1,6 +1,8 @@
 const crypto = require('crypto');
 
 const ValidationError = require('./error/validationError');
+const NotFoundError = require('./error/notFoundError');
+
 const BasicAuthentication = require('./basicAuthentication');
 const IpV4Address = require('./ipV4Address');
 
@@ -62,6 +64,8 @@ class Device {
         await StatusService.getStatus(device);
       }
       return device;
+    }).catch(() => {
+      throw new NotFoundError(`Device with ip '${ip}' could not be found`);
     });
   }
 
