@@ -28,7 +28,6 @@ module.exports = {
     }],
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
     'no-console': 'off',
-    
   },
   
 };
