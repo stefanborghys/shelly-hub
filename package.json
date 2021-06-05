@@ -8,7 +8,7 @@
     "lint": "eslint --fix --color --format table src/js test",
     "test": "jest",
     "test-coverage": "jest --coverage --silent",
-    "prebuild": "npm run test",
+    "prebuild": "npm run lint && npm run test",
     "build": "webpack",
     "document": "jsdoc --configure jsdoc.conf.json",
     "postbuild": "npm run document",
